@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NavigationExtras, Router } from '@angular/router';
 import { IFilme } from '../model/IFilme';
 
 @Component({
@@ -9,7 +10,7 @@ import { IFilme } from '../model/IFilme';
 })
 export class Tab1Page {
 
-  constructor() {}
+  constructor(public router: Router) {} // Corrigido
 
   listafilmes: IFilme[] = [
     {
@@ -23,5 +24,10 @@ export class Tab1Page {
       favorito: false
     }
   ];
+
+  exibirfilme(filme: IFilme){
+    const navigationExtras: NavigationExtras = { state: { paramFilme: filme } }; // Corrigido
+    this.router.navigate(['filme-detalhe'], navigationExtras); // Corrigido
+  }
 
 }

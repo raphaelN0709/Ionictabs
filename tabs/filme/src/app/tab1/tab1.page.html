@@ -1,32 +1,47 @@
-<ion-header [translucent]="true">
+<ion-header translucent="true">
   <ion-toolbar>
-    <ion-title>
-      Filmes
-    </ion-title>
+    <ion-title>Filmes</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content fullscreen="true">
 
   <ion-list *ngIf="listafilmes">
     <ion-item *ngFor="let filme of listafilmes">
+    </ion-item lines="full" (click)="exibirilme(filme)">
       
       <ion-thumbnail slot="start">
-        <img *ngIf="filme.cartaz" [src]="filme.cartaz" />
-        <ion-icon *ngIf="!filme.cartaz" name="videocam-off"></ion-icon>
+        <ng-container *ngIf="filme.cartaz; else semCartaz">
+          <img [src]="filme.cartaz" />
+        </ng-container>
+        <ng-template #semCartaz>
+          <ion-icon name="videocam-off"></ion-icon>
+        </ng-template>
       </ion-thumbnail>
 
       <ion-label class="ion-text-wrap">
-        <h1>{{filme.nome}}</h1>
-        <p>{{filme.lancamento}}</p>
+        <h1>{{ filme.nome }}</h1>
+        <p>{{ filme.lancamento }}</p>
         <div>
           <ion-badge color="medium" *ngFor="let genero of filme.generos">
-            {{genero}}
+            {{ genero }}
           </ion-badge>
         </div>
       </ion-label>
 
-    </ion-item>
-  </ion-list>
+      <ion-chip [color]="filme.classificacao < 5 ? 'danger' : (filme.classificacao < 7 ? 'warning' : 'success')" outline>
+        <ion-label>{{ filme.classificacao }}</ion-label>
+      </ion-chip>
 
+    </ion-item>
+
+    <ion-item-sliding>
+      <ion-item-options side="start">
+        <ion-item-option color="primary">
+          <ion-icon slot="icon-only" name="star"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+
+  </ion-list>
 </ion-content>
