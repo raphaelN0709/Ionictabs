@@ -1,17 +1,29 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 1
+      Filmes
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  
+  <ion-list *ngIf="listafilmes">
+    <ion-thumbnail slot="start">
+      <img *ngIf="filme.cartaz" src="{{filme.cartaz}}" />
+      <ion-icon *ngIf="!filme.cartaz" name="videocam-off"></ion-icon>
+    </ion-thumbnail>
+    
+    <ion-label class="ion-text-wrap">
+      <div>
+        <h1>{{filme.nome}}</h1>
+        <p>{{filme.lancamento}}</p>
+        <ion-badge color="medium" *ngFor="let genero of filme.generos">
+          {{genero}}
+        </ion-badge>
+      </div>
+    </ion-label>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  </ion-list>
+  
 </ion-content>
